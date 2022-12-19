@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TaskList from './components/TaskList.js';
 import './App.css';
 import {useState} from 'react';
+import axios from 'axios';
 
 const TASKS = [
   {
@@ -15,10 +16,30 @@ const TASKS = [
     isComplete: true,
   },
 ];
+const kBaseUrl = 'http://localhost:5000';
+const getAllTasksApi = () =>{
+  return axios.get(`${kBaseUrl}/tasks`)
+    .then(response =>{ return response.data;})
+    .catch(err =>{
+    console.log(err);
+  });
+};
+
+
 
 const App = () => {
-  const [taskData, setTaskData] = useState(TASKS);
-
+  const [taskData, setTaskData] = useState([]);
+  useEffect(()=>{
+    getAllTasks();
+  } ,[]);
+  
+  const getAllTasks = ()=>{
+    getAllTasksApi()
+    .then((tasks) =>{
+      setTaskData(tasks);
+    });
+  
+  }; 
 
   const updateTask = (id) => {
     setTaskData(taskData => taskData.map(task => {
