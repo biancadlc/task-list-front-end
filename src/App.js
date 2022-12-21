@@ -3,6 +3,7 @@ import TaskList from './components/TaskList.js';
 import './App.css';
 import {useState} from 'react';
 import axios from 'axios';
+import NewTaskForm from './components/NewTaskForm.js';
 
 const kBaseUrl = 'https://task-list-api-c17.herokuapp.com';
 
@@ -106,6 +107,7 @@ const App = () => {
       </header>
       <main>
         <div>
+          <NewTaskForm/>
           <TaskList tasks={taskData} onUpdateTask={updateTask} onRemoveTask={removeTask} />
         </div>
       </main>
