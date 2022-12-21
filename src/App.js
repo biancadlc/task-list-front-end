@@ -4,24 +4,13 @@ import './App.css';
 import {useState} from 'react';
 import axios from 'axios';
 
-// const TASKS = [
-//   {
-//     id: 1,
-//     title: 'Mow the lawn',
-//     isComplete: false,
-//   },
-//   {
-//     id: 2,
-//     title: 'Cook Pasta',
-//     isComplete: true,
-//   },
-// ];
 const kBaseUrl = 'https://task-list-api-c17.herokuapp.com';
 
-const convertFromAPI = (apiTask) => {
-  const {id, title, description, is_complete} = apiTask;
+
+const convertFromApi = (apiTask) => {
+  const {id, title, description, is_complete: isComplete} = apiTask;
   //destructure each of the fields coming from the Task
-  const newTask = {id, title, description, isComplete: is_complete};
+  const newTask = {id, title, description, isComplete};
   // use the value of is_complete for the key isComplete
   return newTask;
 };
@@ -29,7 +18,7 @@ const convertFromAPI = (apiTask) => {
 const getAllTasksApi = () =>{
   return axios.get(`${kBaseUrl}/tasks`)// returns a promise you can access outside of this function
     .then(response =>{ 
-      return response.data;
+      return response.data.map(convertFromApi);
     })
     .catch(err => {
     console.log(err);
@@ -44,9 +33,9 @@ const markTaskCompleteApi = (id, taskStatus) => {
       return 'mark_incomplete';
     }
   };
-  return axios.patch(`${kBaseUrl}/tasks/${id}/${markType}`)
+  return axios.patch(`${kBaseUrl}/tasks/${id}/${markType()}`)
   .then(response => {
-    return response.data;
+    return convertFromApi(response.data);
   })
 
   .catch(error => {
@@ -55,7 +44,13 @@ const markTaskCompleteApi = (id, taskStatus) => {
 };
 
 const deleteTaskApi = (id) =>{
-  return axios.delete( `${kBaseUrl}/${id}`);
+  return axios.delete( `${kBaseUrl}/tasks/${id}`)
+  .then(response => {
+    console.log(response.data);
+    return convertFromApi(response.data);
+
+
+  });
 
 };
 

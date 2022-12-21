@@ -10,7 +10,7 @@ const TaskList = (props) => {
         key={task.id}
         id={task.id}
         title={task.title}
-        isComplete={task.is_complete}//
+        isComplete={task.isComplete}//
         onUpdateTask={props.onUpdateTask}
         onRemoveTask={props.onRemoveTask}
       />
