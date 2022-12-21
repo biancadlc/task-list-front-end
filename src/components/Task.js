@@ -8,14 +8,11 @@ const Task = (props) => {
   // const buttonClass = props.isComplete ? 'tasks__item__toggle--completed' : '';
 
     
-  
-  
-
   return (
     <li className="tasks__item">
       <button
         className={props.isComplete ? 'tasks__item__toggle--completed' : 'tasks__item__toggle'}
-        onClick={() => props.onUpdateTask(props.id)}>
+        onClick={() => props.onUpdateTask(props.id, !(props.isComplete))}>
           {props.title}
       </button>
       <button 

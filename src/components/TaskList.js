@@ -5,17 +5,17 @@ import './TaskList.css';
 
 const TaskList = (props) => {
   const getTaskListJSX = props.tasks.map((task) => {
-      return (
-        <Task
-          key={task.id}
-          id={task.id}
-          title={task.title}
-          isComplete={task.isComplete}
-          onUpdateTask={props.onUpdateTask}
-          onRemoveTask = {props.onRemoveTask}
-        />
-      );
-    });
+    return (
+      <Task
+        key={task.id}
+        id={task.id}
+        title={task.title}
+        isComplete={task.is_complete}//
+        onUpdateTask={props.onUpdateTask}
+        onRemoveTask={props.onRemoveTask}
+      />
+    );
+  });
   return <ul className="tasks__list no-bullet">{getTaskListJSX}</ul>;
 };
 
